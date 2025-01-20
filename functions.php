@@ -11,6 +11,17 @@ function grand_sunrise_enqueue_styles() {
 add_filter( 'the_content', 'filter_bad_words' );
 add_filter( 'wp_insert_post_data', 'filter_bad_words_before_save', '99', 2 );
 
+function add_product_categories_to_navbar($items, $args) {
+    if ($args->theme_location == 'primary') {
+        $product_categories = get_terms('product_cat', ['hide_empty' => true]);
+        foreach ($product_categories as $category) {
+            $items .= '<li class="menu-item"><a href="' . get_term_link($category) . '">' . $category->name . '</a></li>';
+        }
+    }
+    return $items;
+}
+add_filter('wp_nav_menu_items', 'add_product_categories_to_navbar', 10, 2);
+
 function filter_bad_words( $content ) {
     $bad_words = array( 'slovo1', 'slovo2', 'slovo3' ); 
     foreach ( $bad_words as $word ) {
