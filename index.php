@@ -1,5 +1,19 @@
 <?php get_header(); ?>
 <body>
+<?php if (function_exists('get_field')): ?>
+<div class="hero-section" style="background-image: url('<?php the_field('hero_background'); ?>');">
+    <div class="hero-content">
+        <h1><?php the_field('hero_title'); ?></h1>
+        <p><?php the_field('hero_subtitle'); ?></p>
+        <?php if (get_field('hero_button_text')): ?>
+            <a href="<?php the_field('hero_button_link'); ?>" class="hero-button">
+                <?php the_field('hero_button_text'); ?>
+            </a>
+        <?php endif; ?>
+    </div>
+</div>
+<?php endif; ?>
+
 <h1><?php bloginfo( 'name' ); ?></h1>
 <h2><?php bloginfo( 'description' ); ?></h2>
 
