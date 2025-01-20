@@ -1,5 +1,13 @@
 <?php get_header(); ?>
 <body>
+<div class="logo">
+        <!-- SVG logo -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 40" fill="white">
+            <text x="0" y="30" font-family="Arial, sans-serif" font-size="30" font-weight="bold">
+                Borny Store
+            </text>
+        </svg>
+    </div>
 <?php if (function_exists('get_field')): ?>
 <div class="hero-section" style="background-image: url('<?php the_field('hero_background'); ?>');">
     <div class="hero-content">
