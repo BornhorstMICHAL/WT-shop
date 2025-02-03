@@ -1,68 +1,38 @@
 <?php
-add_action( 'wp_enqueue_scripts', 'grand_sunrise_enqueue_styles' );
-
-function grand_sunrise_enqueue_styles() {
-	wp_enqueue_style( 
-		'grand-sunrise-parent-style', 
-		get_parent_theme_file_uri( 'style.css' )
-	);
+function borny_theme_setup() {
+    add_theme_support('title-tag');
+    register_nav_menus(array(
+        'primary' => __('Hlavní menu', 'borny-store')
+    ));
 }
+add_action('after_setup_theme', 'borny_theme_setup');
 
-add_filter( 'the_content', 'filter_bad_words' );
-add_filter( 'wp_insert_post_data', 'filter_bad_words_before_save', '99', 2 );
-
-function add_product_categories_to_navbar($items, $args) {
-    if ($args->theme_location == 'primary') {
-        $product_categories = get_terms('product_cat', ['hide_empty' => true]);
-        foreach ($product_categories as $category) {
-            $items .= '<li class="menu-item"><a href="' . get_term_link($category) . '">' . $category->name . '</a></li>';
-        }
-    }
-    return $items;
+function borny_register_menus() {
+    register_nav_menus(array(
+        'primary' => __('Hlavní menu', 'borny-store')
+    ));
 }
-add_filter('wp_nav_menu_items', 'add_product_categories_to_navbar', 10, 2);
+add_action('init', 'borny_register_menus');
 
-function filter_bad_words( $content ) {
-    $bad_words = array( 'slovo1', 'slovo2', 'slovo3' ); 
-    foreach ( $bad_words as $word ) {
-        $pattern = '/\b' . preg_quote( $word, '/' ) . '\b/i';
-        $content = preg_replace( $pattern, '****', $content );
-    }
-    return $content;
+function borny_add_menu_items() {
+    if (wp_get_nav_menu_object('Hlavní menu')) return;
+    
+    $menu_id = wp_create_nav_menu('Hlavní menu');
+    wp_update_nav_menu_item($menu_id, 0, array(
+        'menu-item-title' => __('Domů', 'borny-store'),
+        'menu-item-url' => home_url('/'),
+        'menu-item-status' => 'publish'
+    ));
+    wp_update_nav_menu_item($menu_id, 0, array(
+        'menu-item-title' => __('O Nás', 'borny-store'),
+        'menu-item-url' => home_url('/o-nas'),
+        'menu-item-status' => 'publish'
+    ));
+    wp_update_nav_menu_item($menu_id, 0, array(
+        'menu-item-title' => __('Produkty', 'borny-store'),
+        'menu-item-url' => home_url('/produkty'),
+        'menu-item-status' => 'publish'
+    ));
 }
-
-function filter_bad_words_before_save( $data, $postarr ) {
-    if ( isset( $data['post_content'] ) ) {
-        $data['post_content'] = filter_bad_words( $data['post_content'] );
-    }
-    return $data;
-}
-
-add_action( 'init', 'handle_add_to_cart' );
-
-function handle_add_to_cart() {
-    if ( isset( $_POST['add_to_cart'] ) && isset( $_POST['product_id'] ) ) {
-        $product_id = intval( $_POST['product_id'] );
-        $cart = isset( $_SESSION['cart'] ) ? $_SESSION['cart'] : array();
-        $cart[] = $product_id;
-        $_SESSION['cart'] = $cart;
-    }
-}
-
-add_shortcode( 'shopping_cart', 'display_shopping_cart' );
-
-function display_shopping_cart() {
-    $cart = isset( $_SESSION['cart'] ) ? $_SESSION['cart'] : array();
-    if ( empty( $cart ) ) {
-        return '<p>Váš košík je prázdný.</p>';
-    }
-    $output = '<h2>Váš košík</h2><ul>';
-    foreach ( $cart as $product_id ) {
-        $product = get_post( $product_id );
-        $price = get_post_meta( $product_id, 'price', true );
-        $output .= '<li>' . esc_html( $product->post_title ) . ' - ' . esc_html( $price ) . ' Kč</li>';
-    }
-    $output .= '</ul>';
-    return $output;
-}
+add_action('after_setup_theme', 'borny_add_menu_items');
 ?>
