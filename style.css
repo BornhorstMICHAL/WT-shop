@@ -1,6 +1,6 @@
 /*
-    Theme Name: Theme for my first E-Shop
-    Author: Michal Bornhorst
+Theme Name: Borny Store
+Author: Michal Bornhorst
 */
 body { 
     font-family: Arial, sans-serif; 
@@ -47,3 +47,52 @@ nav ul li a:hover {
     background: #222; 
     color: #fff; 
 }
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.breadcrumbs {
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.product-container {
+    display: flex;
+    gap: 30px;
+}
+
+.product-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.product-details {
+    flex: 1;
+}
+
+.product-details h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.product-description {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.btn-buy {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #0073aa;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.btn-buy:hover {
+    background: #005f8d;
+}
+
