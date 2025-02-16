@@ -17,8 +17,4 @@
             'fallback_cb' => false,
         )); ?>
     </nav>
-    <?php
-if (function_exists('custom_breadcrumbs'))
-    custom_breadcrumbs();
-?>
 </header>
