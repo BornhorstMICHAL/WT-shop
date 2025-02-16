@@ -1,7 +1,4 @@
 <?php
-/*
-Theme Name: Borny Product
-*/
 get_header(); 
 
 <div class="breadcrumbs">
@@ -9,26 +6,15 @@ get_header();
 </div>
 
 <div class="container">
-    <div class="product-page">
-        <?php while (have_posts()) : the_post(); ?>
-            <div class="product-container">
-                <div class="product-image">
-                    <?php 
-                    if (has_post_thumbnail()) {
-                        the_post_thumbnail('large');
-                    } 
-                    ?>
-                </div>
-
-                <div class="product-details">
-                    <h1><?php the_title(); ?></h1>
-                    <div class="product-description">
-                        <?php the_content(); ?>
-                    </div>
-                    <a href="#" class="btn-buy">Koupit</a>
-                </div>
-            </div>
-        <?php endwhile; ?>
+   <div class="product">
+        <img src="produkt.jpg" alt="Produktový obrázek">
+        <div class="product-info">
+            <h1 class="product-title">Název produktu</h1>
+            <p class="product-description">
+                Krátký popis produktu. Může obsahovat několik vět o funkcích, výhodách nebo materiálu.
+            </p>
+            <a href="#" class="buy-button">Koupit nyní</a>
+        </div>
     </div>
 </div>
 
