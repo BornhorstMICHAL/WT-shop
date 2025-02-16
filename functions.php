@@ -35,4 +35,34 @@ function borny_add_menu_items() {
     ));
 }
 add_action('after_setup_theme', 'borny_add_menu_items');
+
+function custom_breadcrumbs() {
+//Settings
+$seperator = '>';
+// Separator between crumbs
+$home = 'Home';
+//Text for the "Home" link.
+$before = '<span class="current">'
+    //Tag before the current crumb
+    $after = '</span>';
+// Tag after the current crumb
+
+if (!is_front_page()){
+echo '<nav class="breadcrumbs">;
+    echo '<a href=" ' .home_url() . '">' . $home . '</a> . $separator;
+
+    if (is_category() || is_single()) {
+    the_category(' ');
+    if (is_single()) {
+    echo $separator . $before . get_the_title(). $after;
+    }
+    } elseif (is_page()) {
+    echo $before . get_the_title() . $after;
+    } elseif (is_home()) {
+    echo $before. 'Blog' . $after;
+    }
+
+    echo '</nav>';
+}
+}
 ?>
