@@ -2,7 +2,10 @@
 get_header(); 
 
 <div class="breadcrumbs">
-    <?php get_template_part('breadcrumb'); ?>
+    <?php
+if (function_exists('custom_breadcrumbs'))
+    custom_breadcrumbs();
+?>
 </div>
 
 <div class="container">
